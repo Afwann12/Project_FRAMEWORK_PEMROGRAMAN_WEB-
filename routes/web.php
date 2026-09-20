@@ -1,35 +1,25 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ReportController;
+use App\Http\Controllers\PosController;
+use App\Http\Controllers\Auth\LoginController;
+
+use App\Http\Controllers\DashboardController;
+
+use App\Http\Controllers\UserController;
 
 Route::get('/', function () {
     return view('welcome');
 });
-
-Route::get('/user/{id}', function ($id) {
-    return 'id user:' .$id;
-}) ->where('id', '[0-9]+');
-
-use App\Http\Dashboard\Controllers\DashboardController;
-
-Route::get('/dashboard', [DashboardController::class, 'index'])
-    ->middleware(['auth'])
-    ->name('dashboard');
-
-
-
-Route::get('/about', function () {
-    return 'Toko Maju Jaya adalah toko yang menyediakan berbagai kebutuhan sehari-hari dengan pelayanan yang cepat dan terpercaya.';
-});
-
-use App\Http\Controllers\UserController;
-
-Route::middleware(['auth', 'role: admin'])->group(function () {
-    Route::resource('/users', UserController::class);
-});
-
-use App\Http\Controllers\Auth\LoginController;
  
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
+
 Route::get('/login', [LoginController::class, 'create'])
     ->middleware('guest')
     ->name('login');
@@ -52,3 +42,36 @@ Route::middleware(['auth', 'role:admin,kasir'])->group(function () {
     Route::get('/pos', [PosController::class, 'index'])->name('pos.index');
     Route::post('/pos', [PosController::class, 'store'])->name('pos.store');
 });
+
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::resource('/users', UserController::class);
+});
+
+Route:: get('/index', function(){
+    $posts=[
+        (object)[
+            'title' => 'Dzul keren',
+            'content' => 'Content for Post 1',
+            'published' => true,
+            'created_at' => now(),
+        ],
+        (object)[
+            'title' => 'fwan keren',
+            'content' => 'Content for Post 2',
+            'published' => true,
+            'created_at' => now(),
+
+        ],
+        (object)[
+            'title' => 'evan keren',
+            'content' => 'Content for Post 3',
+            'published' => true,
+            'created_at' => now(),
+        ],
+    ];
+    return view('posts.index', compact('posts'));
+});
+
+Route::get('/pos/history', function () {
+    return 'Riwayat Transaksi Saya';
+})->name('pos.history');

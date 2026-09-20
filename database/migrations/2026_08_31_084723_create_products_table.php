@@ -24,6 +24,6 @@ public function up(): void
      */
     public function down(): void
     {
-        Schema::dropIfExists('transaction_details');
+        Schema::dropIfExists('products');
     }
 };

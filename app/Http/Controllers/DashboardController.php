@@ -1,7 +1,7 @@
 <?php
-
+ 
 namespace App\Http\Controllers;
-
+ 
 class DashboardController extends Controller
 {
     public function index()
@@ -9,4 +9,3 @@ class DashboardController extends Controller
         return view('dashboard');
     }
 }
-

@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+    
 public function up(): void
 {
     Schema::create('categories', function (Blueprint $table) {
@@ -20,6 +21,6 @@ public function up(): void
      */
     public function down(): void
     {
-        Schema::dropIfExists('transaction_details');
+        Schema::dropIfExists('categories');
     }
 };
