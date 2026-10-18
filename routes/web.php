@@ -6,10 +6,9 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\PosController;
 use App\Http\Controllers\Auth\LoginController;
-
 use App\Http\Controllers\DashboardController;
-
 use App\Http\Controllers\UserController;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -36,6 +35,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::resource('categories', CategoryController::class);
     Route::resource('products', ProductController::class);
     Route::get('/reports/sales', [ReportController::class, 'sales'])->name('report.sales');
+    Route::resource('categories', CategoryController::class);
 });
  
 Route::middleware(['auth', 'role:admin,kasir'])->group(function () {
